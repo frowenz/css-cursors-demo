@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursors Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #282828;
+            color: #ededed;
+        }
+
+        p {
+            margin: 35px 35px 0px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+
+        .cursor-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: calc(min(1000px, 80%));
+            margin-top: 20px;
+        }
+
+        .cursor-box:hover {
+            background-color: #6c6d7b;
+            border: 2px solid #1c2385;
+        }
+
+        .cursor-box {
+            box-sizing: border-box;
+            text-align: center;
+            margin: 10px;
+            padding: 10px;
+            width: 140px;
+            height: 50px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #6c6d7b;
+            /* transition: all 0.2s ease; */
+        }
+
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #3f3f3f;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+            /* border: 2px solid rgb(21, 21, 21); */
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Click to copy the corresponding CSS</p>
+    <div class="cursor-container">
+    </div>
+    <div class="notification">Copied to clipboard!</div>
+    <script>
+        const cursor_strings = [
+            "alias",
+            "auto",
+            "all-scroll",
+            "cell",
+            "context-menu",
+            "copy",
+            "crosshair",
+            "default",
+            "grab",
+            "grabbing",
+            "help",
+            "move",
+            "no-drop",
+            "none",
+            "not-allowed",
+            "pointer",
+            "progress",
+            "text",
+            "vertical-text",
+            "wait",
+            "zoom-in",
+            "zoom-out",
+            "col-resize",
+            "row-resize",
+            "nw-resize",
+            "n-resize",
+            "ne-resize",
+            "e-resize",
+            "w-resize",
+            "sw-resize",
+            "s-resize",
+            "se-resize",
+            "nwse-resize",
+            "nesw-resize",
+            "ns-resize",
+            "ew-resize",
+        ]
+
+        cursor_strings.forEach((cursor_string) => {
+            const cursor_type = document.createElement("div");
+            cursor_type.innerText = cursor_string
+            cursor_type.style.cursor = cursor_string
+            cursor_type.className = "cursor-box"
+
+            cursor_type.onclick = (() => {
+                navigator.clipboard.writeText("cursor: " + cursor_string);
+                showNotification();
+            })
+            document.querySelector('.cursor-container').append(cursor_type)
+        })
+
+        function showNotification() {
+            const notification = document.querySelector('.notification');
+            notification.style.display = 'block';
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 2000);
+        }
+    </script>
+
+</html>
